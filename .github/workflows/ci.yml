@@ -1,0 +1,40 @@
+# CI del Curso 2. Verde = requisito mínimo de la entrega, no la calificación.
+# Los checks crecen con el curso:
+#   Sesión 1+  → assets: npm ci && npm run build
+#   Sesión 2+  → descomentar "backend": composer install + migraciones (SQLite)
+#   Sesión 6+  → descomentar los tests dentro de "backend"
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  assets:
+    name: Build de assets (Vite + Tailwind)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  # backend:
+  #   name: Backend (composer + migraciones + tests)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: '8.3'
+  #         extensions: pdo_sqlite, sqlite3
+  #         coverage: none
+  #     - run: composer install --no-interaction --prefer-dist
+  #     - run: cp .env.example .env && php artisan key:generate
+  #     - run: touch database/database.sqlite && php artisan migrate --force
+  #     # Desde la sesión 6:
+  #     # - run: php artisan test

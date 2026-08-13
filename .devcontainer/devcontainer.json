@@ -1,0 +1,38 @@
+{
+    "name": "Curso 2 · blog-avisos (Laravel 12 + Vite)",
+    "image": "mcr.microsoft.com/devcontainers/php:8.3-bookworm",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "20"
+        }
+    },
+    "containerEnv": {
+        "XDEBUG_MODE": "off"
+    },
+    "mounts": [
+        "source=curso2-vendor,target=${containerWorkspaceFolder}/vendor,type=volume",
+        "source=curso2-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+    ],
+    "forwardPorts": [8000, 5173],
+    "portsAttributes": {
+        "8000": {
+            "label": "Laravel (artisan serve)",
+            "onAutoForward": "openBrowser"
+        },
+        "5173": {
+            "label": "Vite (npm run dev)",
+            "onAutoForward": "silent"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "onecentlin.laravel-blade",
+                "shufo.vscode-blade-formatter",
+                "bradlc.vscode-tailwindcss"
+            ]
+        }
+    },
+    "postCreateCommand": "bash .devcontainer/setup.sh"
+}
