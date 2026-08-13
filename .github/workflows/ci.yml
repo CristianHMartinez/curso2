@@ -16,12 +16,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Antes de la sesion 1 el repo es solo la plantilla (sin package.json):
+      # el job pasa en verde y avisa. En cuanto el proyecto existe, el build es real.
+      - name: Detectar proyecto
+        id: proyecto
+        run: |
+          if [ -f package.json ]; then
+            echo "existe=si" >> "$GITHUB_OUTPUT"
+          else
+            echo "existe=no" >> "$GITHUB_OUTPUT"
+            echo "Sin package.json todavia (el proyecto nace en la sesion 1): nada que construir."
+          fi
       - uses: actions/setup-node@v4
+        if: steps.proyecto.outputs.existe == 'si'
         with:
           node-version: 20
           cache: npm
       - run: npm ci
+        if: steps.proyecto.outputs.existe == 'si'
       - run: npm run build
+        if: steps.proyecto.outputs.existe == 'si'
 
   # backend:
   #   name: Backend (composer + migraciones + tests)
