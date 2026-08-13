@@ -1,0 +1,4 @@
+# Los scripts de bash DEBEN quedar con LF aunque el clon sea en Windows
+# (con CRLF, bash dentro del contenedor falla con errores '\r': command not found)
+* text=auto
+*.sh text eol=lf
