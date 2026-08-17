@@ -33,4 +33,8 @@ Consejo: abre el PR **en borrador desde la clase misma**; lo completas con calma
 
 1. Revisa que `composer run dev` (o al menos `npm run dev`) esté corriendo (el 90% de las veces es esto).
 2. Este repo trae un `vite.config.js` propio que hace funcionar Vite en el contenedor y en Codespaces; si tu proyecto usa otro, tráete el de aquí.
-3. **En Codespaces**: pestaña PORTS → clic derecho en el puerto **5173** → Port Visibility → **Public**, y reinicia `npm run dev`.
+3. **En Codespaces**: pestaña PORTS → clic derecho en el puerto **5173** → Port Visibility → **Public**. Ojo: al reiniciar el codespace el puerto vuelve a Private y hay que repetir este paso.
+4. **`composer run dev` dice "Port already in use"**: quedaron procesos huérfanos de una corrida anterior. Límpialos y vuelve a arrancar:
+   ```bash
+   pkill -f 'php -S'; pkill -f vite; pkill -f 'queue:listen'; composer run dev
+   ```
