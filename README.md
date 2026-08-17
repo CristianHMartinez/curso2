@@ -28,3 +28,9 @@ git push -u origin sesionN-tarea
 Abre el **Pull Request** hacia el `main` de **TU fork** (cuidado: GitHub propone por defecto el repositorio del curso como base; cámbiala en el selector a tu usuario), llena la plantilla (checklist de la sesión) y **pega la URL del PR en la Tarea de Moodle** de esa sesión antes de la fecha límite (víspera de la siguiente clase, 23:59).
 
 Consejo: abre el PR **en borrador desde la clase misma**; lo completas con calma antes de la fecha límite. La rúbrica completa está publicada en Moodle.
+
+## ¿La página carga sin estilos?
+
+1. Revisa que `npm run dev` esté corriendo en su propia terminal (el 90% de las veces es esto).
+2. Este repo trae un `vite.config.js` propio que hace funcionar Vite en el contenedor y en Codespaces; si tu proyecto usa otro, tráete el de aquí.
+3. **En Codespaces**: pestaña PORTS → clic derecho en el puerto **5173** → Port Visibility → **Public**, y reinicia `npm run dev`.
