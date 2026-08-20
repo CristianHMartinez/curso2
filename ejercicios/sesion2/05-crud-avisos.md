@@ -41,7 +41,9 @@ El formulario del Ejercicio 1 es decorativo y la portada solo lee. Aquí el blog
    Route::get('/', [PostController::class, 'index'])->name('avisos.index');
    ```
 
-   ✅ **Checkpoint 0:** la portada se ve idéntica, pero la lógica ya vive en el controlador. (Error típico: `Target class [PostController] does not exist` = te faltó el `use` de arriba.)
+   Ese `publicados()` es el **scope** que definiste en el nivel 2 (Ejercicio 2, paso 9): la consulta con nombre del modelo. Si todavía no haces el nivel 2, usa `Post::with('categoria')->latest()->get()` mientras tanto y regresa a ponerle el scope después.
+
+   ✅ **Checkpoint 0:** la portada se ve idéntica, pero la lógica ya vive en el controlador. (Error típico: `Target class [PostController] does not exist` = te faltó el `use` de arriba. Y `Call to undefined method publicados()` = el scope del nivel 2 aún no existe en tu modelo.)
 
 ## Parte A · Crear avisos: create + store (15 min)
 
