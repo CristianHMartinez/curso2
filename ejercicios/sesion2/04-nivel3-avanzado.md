@@ -47,6 +47,26 @@ Hoy la tarjeta corta el texto con `Str::limit($post->contenido, 90)`: lógica de
 
    ✅ **Checkpoint B:** la portada se ve igual, pero si mañana el resumen cambia a 120 caracteres, se cambia en UN lugar. Bonus para explicar en tu PR: `created_at` ya te llegaba como fecha por un **cast** automático (por eso funciona `->format()`), y tú agregaste otro con `'publicado' => 'boolean'`.
 
+   > **La otra sintaxis (la vas a encontrar en código existente):** en versiones anteriores de Laravel los accessors se escriben con prefijo: `public function getResumenAttribute()` (y el espejo `setTituloAttribute($valor)` para guardar). En Laravel 12 funcionan las DOS y producen el mismo `$post->resumen`; mucho código en producción usa la clásica, así que conviene saber leerla.
+
+   **Reto extra · campo calculado a partir de VARIAS columnas:** crea el accessor `esNuevo` que combine `publicado` y `created_at`:
+   ```php
+   protected function esNuevo(): Attribute
+   {
+       return Attribute::get(fn () =>
+           $this->publicado
+           && $this->created_at->gt(now()->subDays(7))
+       );
+   }
+   ```
+   y en la tarjeta, un badge condicional:
+   ```blade
+   @if ($post->es_nuevo)
+       <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full mb-2">NUEVO</span>
+   @endif
+   ```
+   ✅ Los avisos de los últimos 7 días estrenan badge; el campo `es_nuevo` no existe en la tabla, nace de otras dos columnas.
+
 ## Parte C · Soft deletes: borrar sin perder (10 min)
 
 5. Migración y trait:
