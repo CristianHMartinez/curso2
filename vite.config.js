@@ -23,6 +23,11 @@ export default defineConfig({
         host: '0.0.0.0',
         port: 5173,
         strictPort: true,
+        // En Docker sobre Windows, los eventos de "archivo cambiado" no cruzan
+        // del disco de Windows al contenedor: sin esto, guardas y el navegador
+        // no se actualiza solo (HMR muerto, refresh manual si funciona).
+        // El sondeo revisa los archivos cada 300 ms; costo minimo, cura total.
+        watch: { usePolling: true, interval: 300 },
         ...(enCodespaces
             ? {
                   // En Codespaces el navegador entra por el dominio publico del puerto 5173
