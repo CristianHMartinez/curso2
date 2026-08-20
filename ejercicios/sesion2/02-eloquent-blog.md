@@ -60,7 +60,7 @@ Hasta hoy la portada muestra objetos inventados en la ruta. En este ejercicio el
    }
    ```
 
-4. Registra los seeders del curso en `database/seeders/DatabaseSeeder.php` (el orden importa):
+4. Registra los seeders del curso en `database/seeders/DatabaseSeeder.php`. **Reemplaza el contenido completo de `run()`** (el `User::factory()` que trae de fábrica estorba: crea un usuario de prueba que truena si siembras dos veces). El orden importa:
    ```php
    public function run(): void
    {
@@ -182,6 +182,7 @@ Si quieres ir más allá, sigue con `04-nivel3-avanzado.md`: mide el problema N+
 | `SQLSTATE: no such table: categorias` al migrar | La migración de `posts` corrió antes que la de `categorias`; el orden lo marca el timestamp del nombre de archivo (por eso Categoria se crea primero) |
 | `Class "Database\Seeders\PostSeeder" not found` | Los seeders del curso no están en tu proyecto: te faltó el pull del inicio de la clase |
 | `table posts has no column named titulo` al sembrar | Tus columnas se llaman distinto; adapta `PostSeeder.php` a tus nombres |
+| `UNIQUE constraint failed: users.email` al sembrar de nuevo | Dejaste el `User::factory()` que traía `DatabaseSeeder` de fábrica; no es re-ejecutable. Bórralo (paso 4) o usa `migrate:fresh --seed` |
 | `Call to undefined method Post::publicados()` | En el modelo el método se llama `scopePublicados` (con prefijo `scope`); se invoca sin él |
 | `Attempt to read property "nombre" on string` | La ruta sigue mandando los objetos de ejemplo; el componente ya espera la relación real |
 | Todo enredado y quieres empezar de cero | `php artisan migrate:fresh --seed` borra TODAS las tablas y las recrea con seeders (solo en desarrollo, jamás con datos valiosos) |
