@@ -1,4 +1,4 @@
-# Ejercicio 1 · Componentes Blade y un formulario con Tailwind (18 min)
+# Ejercicio 1 · Componentes Blade y un formulario con Tailwind (15 min)
 
 La portada del blog repite las mismas clases en cada tarjeta. Vas a **extraer un componente** para escribirlas una sola vez, y a estilizar un **formulario**, la pieza de UI que más vas a maquetar en la vida real.
 
@@ -66,7 +66,7 @@ Estos son los 3 archivos de la portada, completos. En clase los armamos paso a p
 
    ✅ **Checkpoint 0:** con `composer run dev` corriendo, la portada muestra el hero azul y 3 tarjetas con estilos.
 
-## Parte A · El componente `<x-tarjeta-post>` (8 min)
+## Parte A · El componente `<x-tarjeta-post>` (7 min)
 
 1. Crea `resources/views/components/tarjeta-post.blade.php`:
    ```blade
@@ -90,7 +90,7 @@ Estos son los 3 archivos de la portada, completos. En clase los armamos paso a p
 
    ✅ **Checkpoint A:** la portada se ve idéntica, pero las clases viven en UN archivo. Cambia `rounded-lg` por `rounded-2xl` en el componente: todas las tarjetas cambian a la vez.
 
-## Parte B · Formulario de contacto estilizado (10 min)
+## Parte B · Formulario de contacto estilizado (8 min)
 
 3. Crea la vista `resources/views/contacto.blade.php` (extiende `layouts.publico`) con un formulario de: nombre, correo y mensaje. Ruta: `Route::get('/contacto', fn () => view('contacto'));`
 
