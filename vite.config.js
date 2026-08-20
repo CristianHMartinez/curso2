@@ -34,6 +34,11 @@ export default defineConfig({
                   // (recuerda ponerlo en "Public" en la pestana PORTS)
                   hmr: { protocol: 'wss', host: hostPublico, clientPort: 443 },
                   origin: `https://${hostPublico}`,
+                  // Vite 6 endurecio su CORS (solo acepta localhost de fabrica).
+                  // En Codespaces la pagina vive en el dominio -8000 y los assets
+                  // en el -5173: sin esto el navegador bloquea @vite/client y
+                  // app.js (estilos si cargan, HMR y JS no).
+                  cors: { origin: [/\.app\.github\.dev$/, /^https?:\/\/localhost(?::\d+)?$/] },
               }
             : {
                   // Contenedor local o Laragon: el navegador llega por localhost
