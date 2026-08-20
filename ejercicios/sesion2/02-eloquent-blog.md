@@ -173,7 +173,7 @@ El nivel 2 se completa con las **etiquetas** (relación muchos a muchos con tabl
 
 ## Nivel 3 (avanzado, extra) · N+1, accessors y soft deletes
 
-¿Con cuerda todavía? `04-nivel3-avanzado.md`: mide el problema N+1 con el query log, crea el accessor `resumen` y dale soft deletes al blog. Cuenta como extra en tu PR.
+Si quieres ir más allá, sigue con `04-nivel3-avanzado.md`: mide el problema N+1 con el query log, crea el accessor `resumen` y agrega soft deletes al blog. Cuenta como extra en tu PR.
 
 ## Problemas comunes
 

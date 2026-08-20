@@ -94,7 +94,7 @@ Estos son los 3 archivos de la portada, completos. En clase los armamos paso a p
 
 3. Crea la vista `resources/views/contacto.blade.php` (extiende `layouts.publico`) con un formulario de: nombre, correo y mensaje. Ruta: `Route::get('/contacto', fn () => view('contacto'));`
 
-4. Estilízalo con este vocabulario (cada input igual, así que... ¿ves venir el componente?):
+4. Estilízalo con este vocabulario (todos los inputs llevan las mismas clases; en el desafío las extraes al componente `<x-campo>`):
    - Contenedor: `max-w-lg mx-auto p-8 bg-white rounded-lg shadow mt-8`
    - Label: `block text-sm font-medium text-gray-700 mb-1`
    - Input/textarea: `w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none`

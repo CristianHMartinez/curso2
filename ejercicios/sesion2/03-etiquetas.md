@@ -72,7 +72,7 @@ Un post puede tener varias etiquetas y una etiqueta puede estar en varios posts:
 
    ✅ **Checkpoint C:** `attach`, `sync` y `whereHas` te devuelven lo que esperabas y sabes explicar la diferencia entre `attach` y `sync`.
 
-## ¿Y ahora?
+## Qué sigue
 
 Con las etiquetas vivas ya puedes hacer el **Bloque B** del set de consultas de la tarea, y si quieres terreno avanzado (medir el N+1, accessors, soft deletes), sigue con `04-nivel3-avanzado.md`.
 
