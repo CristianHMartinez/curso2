@@ -1,9 +1,9 @@
-# Tarea de la semana · Sesión 2 (~1.5h)
+# Tarea de la semana · Sesión 2 (~2h)
 
 > **Fecha límite: víspera de la sesión 3, a las 23:59** (la fecha exacta se publica en el canal del curso).
 > La tarea **incluye terminar lo que haya quedado pendiente de los Ejercicios 1 y 2 de la clase**; el tiempo de clase era para arrancar acompañado, no era el límite.
 
-Dos partes. La entrega es **un Pull Request dentro de tu fork del proyecto**, en una rama `sesion2-tarea`. Es el primer PR del curso: al final hay una guía express paso a paso.
+Tres partes. La entrega es **un Pull Request dentro de tu fork del proyecto**, en una rama `sesion2-tarea`. Es el primer PR del curso: al final hay una guía express paso a paso.
 
 ## 1. Termina tu blog con base de datos (~45 min)
 
@@ -14,7 +14,11 @@ Completa lo que no haya quedado en clase:
 - **Nivel 2 (obligatorio, lo nuevo de la sesión):** columna `publicado` + scopes `publicados()` y `deCategoria()` con la portada mostrando solo lo publicado (Ejercicio 2), **y las etiquetas N:M** con `attach`/`sync` (Ejercicio 3).
 - **Nivel 3 (opcional, cuenta como extra):** N+1 medido, accessor `resumen` y soft deletes (Ejercicio 4).
 
-## 2. Set de consultas en Tinker (~45 min)
+## 2. El alta de avisos (~30 min, obligatorio)
+
+El formulario deja de ser decorativo: página `/avisos/crear` que **valida y crea posts reales** (`@csrf`, `validate()`, `@error`, `old()`), con botón "Nuevo aviso" en la portada. La receta completa, paso a paso, está en `05-alta-avisos.md`. Con esto tu blog ya lee Y escribe; en la siguiente sesión le pondremos control de quién puede escribir.
+
+## 3. Set de consultas en Tinker (~45 min)
 
 Crea un archivo **`consultas-tinker.md`** en la raíz de tu proyecto (entra al PR). Por cada consulta pega: la consulta que escribiste y, como comentario, qué devolvió. Deben estar probadas en `php artisan tinker`, no inventadas.
 
@@ -45,6 +49,7 @@ Copia esto en la descripción de tu PR y marca lo que cumples:
 - [ ] Portada con datos reales: relación categoria y created_at formateado (nivel 1)
 - [ ] Columna publicado + scopes, la portada solo muestra publicados (nivel 2)
 - [ ] Etiquetas N:M funcionando: attach/sync probados en Tinker (nivel 2)
+- [ ] Alta de avisos: /avisos/crear valida (@error + old) y crea posts reales (Ejercicio 5)
 - [ ] consultas-tinker.md con los Bloques A y B probados
 - [ ] Extra: N+1 medido, accessor resumen y soft deletes (nivel 3, opcional)
 ```
