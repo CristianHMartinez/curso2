@@ -30,7 +30,7 @@ class PostController extends Controller
 
         Post::create($datos);
 
-        return redirect()->route('avisos.index');
+        return redirect()->to(route('avisos.index', [], false));
     }
 
     public function edit(Post $post)
@@ -51,13 +51,13 @@ class PostController extends Controller
 
         $post->update($datos);
 
-        return redirect()->route('avisos.index');
+        return redirect()->to(route('avisos.index', [], false));
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
 
-        return redirect()->route('avisos.index');
+        return redirect()->to(route('avisos.index', [], false));
     }
 }
