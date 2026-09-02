@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
-    protected $fillable = ['titulo', 'contenido', 'categoria_id', 'publicado'];
+    protected $fillable = ['titulo', 'contenido', 'categoria_id', 'publicado', 'user_id'];
 
     protected $casts = ['publicado' => 'boolean'];
 
@@ -36,4 +36,9 @@ class Post extends Model
     {
         return $query->where('created_at', '>=', now()->subDays($dias));
     }
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

@@ -26,8 +26,10 @@ class PostController extends Controller
             'titulo' => ['required', 'max:120'],
             'contenido' => ['required'],
             'categoria_id' => ['required', 'exists:categorias,id'],
+            'user_id' => ['required', 'exists:users,id'],
         ]);
 
+        $datos['user_id'] = auth()->id();
         Post::create($datos);
 
         return redirect()->to(route('avisos.index', [], false));
@@ -47,6 +49,7 @@ class PostController extends Controller
             'titulo' => ['required', 'max:120'],
             'contenido' => ['required'],
             'categoria_id' => ['required', 'exists:categorias,id'],
+            'user_id' => ['required', 'exists:users,id'],
         ]);
 
         $post->update($datos);
