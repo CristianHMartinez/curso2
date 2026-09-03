@@ -9,6 +9,18 @@ use Illuminate\Auth\Access\Response;
 class PostPolicy
 {
     /**
+     * El rol admin puede con todo; los demás casos los deciden los métodos de abajo.
+     */
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->rol === 'admin') {
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
@@ -37,7 +49,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return false;
+        return $user->id === $post->user_id;
     }
 
     /**
@@ -45,7 +57,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return false;
+        return $user->id === $post->user_id;
     }
 
     /**

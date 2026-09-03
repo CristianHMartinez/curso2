@@ -9,12 +9,16 @@
     <p class="text-gray-400 text-xs mt-4">{{ $post->created_at->format('d/m/Y') }}</p>
 
     <div class="mt-4 flex items-center gap-3">
-        <a href="{{ route('avisos.edit', $post, false) }}" class="text-blue-700 text-sm font-semibold hover:underline">Editar</a>
+        @can('update', $post)
+            <a href="{{ route('avisos.edit', $post, false) }}" class="text-blue-700 text-sm font-semibold hover:underline">Editar</a>
+        @endcan
 
-        <form method="POST" action="{{ route('avisos.destroy', $post, false) }}" class="inline" onsubmit="return confirm('¿Borrar este aviso?')">
-            @csrf
-            @method('DELETE')
-            <button class="text-red-600 text-sm font-semibold hover:underline">Borrar</button>
-        </form>
+        @can('delete', $post)
+            <form method="POST" action="{{ route('avisos.destroy', $post, false) }}" class="inline" onsubmit="return confirm('¿Borrar este aviso?')">
+                @csrf
+                @method('DELETE')
+                <button class="text-red-600 text-sm font-semibold hover:underline">Borrar</button>
+            </form>
+        @endcan
     </div>
 </article>
