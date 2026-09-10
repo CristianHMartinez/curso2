@@ -8,6 +8,8 @@ use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Jobs\EnviarAvisoPorCorreo;
+
 
 class PostController extends Controller
 {
@@ -40,6 +42,7 @@ class PostController extends Controller
         $datos['user_id'] = $request->user()->id;
 
         $post = Post::create($datos);
+        EnviarAvisoPorCorreo::dispatch($post);
 
         return (new PostResource($post->load(['categoria', 'user', 'etiquetas'])))
             ->response()
