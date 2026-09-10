@@ -15,8 +15,8 @@ class PostInfolist
                 TextEntry::make('titulo'),
                 TextEntry::make('contenido')
                     ->columnSpanFull(),
-                TextEntry::make('categoria.id')
-                    ->label('Categoria'),
+                TextEntry::make('categoria.nombre')
+                    ->label('Categoría'),
                 TextEntry::make('created_at')
                     ->dateTime()
                     ->placeholder('-'),

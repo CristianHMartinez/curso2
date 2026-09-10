@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\EtiquetaResource;
 
 class PostResource extends JsonResource
 {
@@ -20,6 +21,7 @@ class PostResource extends JsonResource
                 'nombre' => $this->categoria->nombre,
             ]),
             'autor' => $this->whenLoaded('user', fn () => $this->user?->name),
+            'etiquetas' => $this->whenLoaded('etiquetas', fn () => EtiquetaResource::collection($this->etiquetas)),
             'creado' => $this->created_at->toIso8601String(),
         ];
     }

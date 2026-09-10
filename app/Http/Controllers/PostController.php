@@ -16,11 +16,15 @@ class PostController extends Controller
 
     public function create()
     {
+        Gate::authorize('create', Post::class);
+
         return view('avisos.crear', ['categorias' => Categoria::orderBy('nombre')->get()]);
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Post::class);
+
         $datos = $request->validate([
             'titulo' => ['required', 'max:120'],
             'contenido' => ['required'],
@@ -30,7 +34,7 @@ class PostController extends Controller
         $datos['user_id'] = auth()->id();
         Post::create($datos);
 
-        return redirect()->to(route('avisos.index', [], false));
+        return redirect()->to(route('avisos.index', [], false))->with('ok', 'Aviso guardado');
     }
 
     public function edit(Post $post)
@@ -55,7 +59,7 @@ class PostController extends Controller
 
         $post->update($datos);
 
-        return redirect()->to(route('avisos.index', [], false));
+        return redirect()->to(route('avisos.index', [], false))->with('ok', 'Aviso guardado');
     }
 
     public function destroy(Post $post)
@@ -64,6 +68,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->to(route('avisos.index', [], false));
+        return redirect()->to(route('avisos.index', [], false))->with('ok', 'Aviso guardado');
     }
 }

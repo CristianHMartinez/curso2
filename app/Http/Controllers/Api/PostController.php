@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $avisos = Post::publicados()
-            ->with(['categoria', 'user'])
+            ->with(['categoria', 'user', 'etiquetas'])
             ->when($request->categoria, fn ($q, $id) => $q->deCategoria($id))
             ->latest()
             ->paginate(10);
@@ -24,7 +24,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return new PostResource($post->load(['categoria', 'user']));
+        return new PostResource($post->load(['categoria', 'user', 'etiquetas']));
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class PostController extends Controller
 
         $post = Post::create($datos);
 
-        return (new PostResource($post->load(['categoria', 'user'])))
+        return (new PostResource($post->load(['categoria', 'user', 'etiquetas'])))
             ->response()
             ->setStatusCode(201);
     }
@@ -58,7 +58,7 @@ class PostController extends Controller
 
         $post->update($datos);
 
-        return new PostResource($post->load(['categoria', 'user']));
+        return new PostResource($post->load(['categoria', 'user', 'etiquetas']));
     }
 
     public function destroy(Post $post)

@@ -25,7 +25,7 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -33,7 +33,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return in_array($user->rol, ['admin', 'editor']);
     }
 
     /**
@@ -72,6 +72,14 @@ class PostPolicy
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(User $user, Post $post): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can bulk delete models.
+     */
+    public function deleteAny(User $user): bool
     {
         return false;
     }
