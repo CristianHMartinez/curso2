@@ -5,7 +5,7 @@ La portada del blog repite las mismas clases en cada tarjeta. Vas a **extraer un
 ## Parte 0 · La portada del blog (la construimos todos juntos en clase)
 
 Estos son los 3 archivos de la portada, completos. En clase los armamos paso a paso con el instructor; aquí están para copiar y pegar, y para ponerte al día si te atoraste o llegaste tarde:
-
+.
 1. `resources/views/layouts/publico.blade.php`:
    ```blade
    <!DOCTYPE html>
