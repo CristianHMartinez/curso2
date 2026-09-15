@@ -10,6 +10,9 @@
     <div class="bg-white border-b px-6 py-2 text-sm flex justify-end items-center gap-4">
     @auth
         <span class="text-gray-600">Hola, {{ auth()->user()->name }}</span>
+        @can('ver-panel')
+            <a href="{{ url('/admin') }}" class="text-blue-700 font-semibold hover:underline">Panel</a>
+        @endcan
         <form method="POST" action="{{ route('logout', [], false) }}">
             @csrf
             <button class="text-blue-700 font-semibold hover:underline">Salir</button>

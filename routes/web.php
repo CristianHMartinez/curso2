@@ -10,7 +10,7 @@ Route::get('/contacto', function () {
 });
 
 Route::get('/login', [AuthController::class, 'mostrar'])->name('login');
-Route::post('/login', [AuthController::class, 'entrar'])->name('login');
+Route::post('/login', [AuthController::class, 'entrar']);
 Route::post('/logout', [AuthController::class, 'salir'])->name('logout');
 
 Route::middleware('auth')->group(function () {

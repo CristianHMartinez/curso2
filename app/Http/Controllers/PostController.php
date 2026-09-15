@@ -14,6 +14,11 @@ class PostController extends Controller
         return view('portada');
     }
 
+    public function show(Post $post)
+    {
+        //
+    }
+
     public function create()
     {
         Gate::authorize('create', Post::class);
