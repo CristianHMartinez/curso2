@@ -5,6 +5,7 @@ export interface Aviso {
   publicado: boolean;
   categoria?: { id: number; nombre: string };
   autor?: string;
+  autor_id?: number;
   creado: string;
 }
 

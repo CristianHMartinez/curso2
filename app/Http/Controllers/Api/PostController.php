@@ -18,6 +18,7 @@ class PostController extends Controller
         $avisos = Post::publicados()
             ->with(['categoria', 'user', 'etiquetas'])
             ->when($request->categoria, fn ($q, $id) => $q->deCategoria($id))
+            ->when($request->query('q'), fn ($q, $texto) => $q->where('titulo', 'like', "%{$texto}%"))
             ->latest()
             ->paginate(10);
 

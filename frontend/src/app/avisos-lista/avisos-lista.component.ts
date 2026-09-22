@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, debounceTime, distinctUntilChanged, map, of, switchMap, tap } from 'rxjs';
 
 import { Aviso } from '../modelos/aviso';
 import { AvisosService } from '../servicios/avisos.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SesionService } from '../servicios/sesion.service';
+import { Sesion, SesionService } from '../servicios/sesion.service';
 
 
 @Component({
@@ -17,7 +19,7 @@ export class AvisosListaComponent implements OnInit {
   error = '';
   mensaje = '';
   mensajeOk = false;
-
+  buscar = new FormControl('', { nonNullable: true });
 
 
   constructor(private avisosService: AvisosService, public sesion: SesionService) { }
@@ -25,11 +27,31 @@ export class AvisosListaComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargar();
+
+    this.buscar.valueChanges.pipe(
+      debounceTime(300),              // espera a que dejen de teclear
+      map(texto => texto.trim()),
+      distinctUntilChanged(),         // si el texto no cambió, no vuelve a preguntar
+      tap(() => {
+        this.cargando = true;
+        this.error = '';
+      }),
+      switchMap(texto => this.avisosService.listar(texto).pipe(
+        // Dentro del switchMap: si una búsqueda falla, el buscador sigue vivo.
+        catchError(() => {
+          this.error = 'No pude buscar en tu API.';
+          return of([]);
+        })
+      ))
+    ).subscribe(avisos => {
+      this.avisos = avisos;
+      this.cargando = false;
+    });
   }
 
   cargar(): void {
     this.cargando = true;
-    this.avisosService.listar().subscribe({
+    this.avisosService.listar(this.buscar.value.trim()).subscribe({
       next: avisos => {
         this.avisos = avisos;
         this.cargando = false;
@@ -56,6 +78,14 @@ export class AvisosListaComponent implements OnInit {
         this.mensajeOk = false;
       }
     });
+  }
+
+  // La misma regla de tu PostPolicy, escrita otra vez del lado de la pantalla.
+  puedeBorrar(aviso: Aviso, s: Sesion | null): boolean {
+    if (s === null) {
+      return false;
+    }
+    return s.rol === 'admin' || s.id === aviso.autor_id;
   }
 
 }

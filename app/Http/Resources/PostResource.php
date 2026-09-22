@@ -21,6 +21,7 @@ class PostResource extends JsonResource
                 'nombre' => $this->categoria->nombre,
             ]),
             'autor' => $this->whenLoaded('user', fn () => $this->user?->name),
+            'autor_id' => $this->user_id,
             'etiquetas' => $this->whenLoaded('etiquetas', fn () => EtiquetaResource::collection($this->etiquetas)),
             'creado' => $this->created_at->toIso8601String(),
             'destinatarios' => $this->destinatarios ?? 0,

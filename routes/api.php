@@ -4,10 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TokenController;
+use App\Models\Categoria;
 
 Route::get('/avisos', [PostController::class, 'index']);
 Route::get('/avisos/{post}', [PostController::class, 'show']);
 Route::get('/resumen', [PostController::class, 'resumen']);
+Route::get('/categorias', fn () => Categoria::orderBy('nombre')->get(['id', 'nombre']));
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

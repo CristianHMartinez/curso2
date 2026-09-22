@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AvisosListaComponent } from './avisos-lista/avisos-lista.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntrarComponent } from './entrar/entrar.component';
 import { AuthInterceptor } from './interceptores/auth.interceptor';
+import { ErroresInterceptor } from './interceptores/errores.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AvisoNuevoComponent } from './aviso-nuevo/aviso-nuevo.component';
+import { TarjetaAvisoComponent } from './tarjeta-aviso/tarjeta-aviso.component';
 
 
 @NgModule({
@@ -16,17 +18,24 @@ import { AvisoNuevoComponent } from './aviso-nuevo/aviso-nuevo.component';
     AppComponent,
     AvisosListaComponent,
     EntrarComponent,
-    AvisoNuevoComponent
+    AvisoNuevoComponent,
+    TarjetaAvisoComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErroresInterceptor,
       multi: true
     }
   ],

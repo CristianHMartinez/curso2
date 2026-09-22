@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 export interface Sesion {
   token: string;
+  id: number;
   usuario: string;
   rol: string;
 }
@@ -39,7 +40,16 @@ export class SesionService {
     return this.http.get<{ id: number; nombre: string; rol: string }>('/api/yo');
   }
 
+  // Revoca el token en tu API y despues lo olvida aqui.
   salir(): void {
+    this.http.post('/api/token/revocar', {}).subscribe({
+      next: () => this.olvidar(),
+      error: () => this.olvidar()
+    });
+  }
+
+  // Solo lo olvida en este navegador.
+  olvidar(): void {
     sessionStorage.removeItem(CLAVE);
     this.sesionSubject.next(null);
   }

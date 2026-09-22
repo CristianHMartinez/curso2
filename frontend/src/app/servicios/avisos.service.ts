@@ -11,8 +11,9 @@ export class AvisosService {
 
   constructor(private http: HttpClient) { }
 
-  listar(): Observable<Aviso[]> {
-    return this.http.get<{ data: Aviso[] }>('/api/avisos').pipe(
+  listar(texto = ''): Observable<Aviso[]> {
+    const params: Record<string, string> = texto ? { q: texto } : {};
+    return this.http.get<{ data: Aviso[] }>('/api/avisos', { params }).pipe(
       map(respuesta => respuesta.data)
     );
   }

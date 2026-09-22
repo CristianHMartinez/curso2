@@ -28,6 +28,7 @@ class TokenController extends Controller
 
         return [
             'token' => $usuario->createToken($datos['dispositivo'])->plainTextToken,
+            'id' => $usuario->id,
             'usuario' => $usuario->name,
             'rol' => $usuario->rol,
         ];
