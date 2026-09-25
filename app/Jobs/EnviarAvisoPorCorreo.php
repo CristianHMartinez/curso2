@@ -20,7 +20,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
 
-class EnviarAvisoPorCorreo
+class EnviarAvisoPorCorreo implements ShouldQueue
 {
     use Queueable;
 
@@ -28,6 +28,8 @@ class EnviarAvisoPorCorreo
 
     public function handle(): void
     {
+        sleep(3);   // aqui iria el envio real
+        Log::info('Aviso enviado por correo: ' . $this->post->titulo);
         $usuarios = User::all();
 
         // Arranca la cuenta. Si el trabajo se reintenta, vuelve a empezar de cero.
