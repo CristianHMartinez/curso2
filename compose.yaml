@@ -1,10 +1,3 @@
-# Esqueleto. En la guia 02 lo completas hasta tener los cuatro servicios.
-#
-# Ya esta el primero, la base de datos, para que veas la forma. Te faltan tres:
-#   2. laravel   construye con docker/laravel.Dockerfile, publica el 8081, habla con db
-#   3. django    construye con docker/django.Dockerfile, publica el 8082, habla con db
-#   4. angular   construye con docker/angular.Dockerfile, publica el 8080
-#
 # Reglas que se repiten en los tres:
 #   - ninguno lleva la contrasena escrita aqui: sale de tu .env
 #   - todos van en la misma red `interna`, si no, no se ven entre ellos
@@ -29,11 +22,62 @@ services:
       retries: 20
     networks: [interna]
 
-  # 2. laravel: aqui va el tuyo
+  laravel:
+    build:
+      context: .
+      dockerfile: docker/laravel.Dockerfile
+    environment:
+      APP_NAME: Avisos
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: ${APP_KEY:?falta APP_KEY en tu .env, generala con php artisan key:generate}
+      APP_URL: ${URL_LARAVEL:-http://localhost:8081}
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_DATABASE: ${BD_LARAVEL}
+      DB_USERNAME: ${BD_USUARIO}
+      DB_PASSWORD: ${BD_CLAVE}
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+    ports: ["${PUERTO_LARAVEL:-8081}:80"]
+    depends_on:
+      db: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD-SHELL", "php -r 'exit(@file_get_contents(\"http://127.0.0.1/up\") === false ? 1 : 0);'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - almacen-laravel:/var/www/html/storage
+    networks: [interna]
 
-  # 3. django: aqui va el tuyo
+  django:
+    build:
+      context: .
+      dockerfile: docker/django.Dockerfile
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?falta DJANGO_SECRET_KEY en tu .env}
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,django}
+      DJANGO_DB_NAME: ${BD_DJANGO:-avisos_django}
+      DJANGO_DB_USER: ${BD_USUARIO}
+      DJANGO_DB_PASSWORD: ${BD_CLAVE}
+      DJANGO_DB_HOST: db
+      DJANGO_DB_PORT: "5432"
+    ports: ["${PUERTO_DJANGO:-8082}:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+    networks: [interna]
 
-  # 4. angular: aqui va el tuyo
+  angular:
+    build:
+      context: .
+      dockerfile: docker/angular.Dockerfile
+    ports: ["${PUERTO_ANGULAR:-8080}:80"]
+    depends_on: [laravel, django]
+    networks: [interna]
 
 networks:
   interna:
