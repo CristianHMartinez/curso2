@@ -3,7 +3,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
-from avisos.views import AvisoViewSet
+from avisos.views import AvisoViewSet, yo
 
 router = DefaultRouter()
 router.register(r"avisos", AvisoViewSet)
@@ -13,5 +13,5 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("api-auth/", include("rest_framework.urls")),
     path("api/token", obtain_auth_token),
-    path("api/yo", avisos.views.yo),
+    path("api/yo", yo),
 ]

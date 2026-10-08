@@ -1,6 +1,7 @@
 from rest_framework import permissions, viewsets
 
 from .models import Aviso
+from .permissions import EsAutorOAdmin
 from .serializers import AvisoSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
